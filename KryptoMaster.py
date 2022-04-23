@@ -281,3 +281,73 @@ def create_var_dash():
     key = tk.StringVar()
     combo = tk.StringVar()
     source_file = ''
+
+
+#--------Registration window-------------
+def reg_wind():
+    cursor = con.cursor()
+    reg_window = tk.Tk()
+    reg_window.geometry('500x650')
+    reg_window.title("Krypto Master - Registration Form")
+    reg_window.resizable(0, 0)
+    reg_window.configure(bg="#e7eaf6")
+
+
+    reg_img = tk.PhotoImage(file = resource_path(r"resources\register_img.png"))
+    reg_img_lab = tk.Label(reg_window, image = reg_img)
+    reg_img_lab.pack(pady=20)
+    reg_window.iconbitmap(resource_path(r'resources\icon.ico'))
+    
+    global lab_status
+
+    create_var_reg()
+     
+    def helpp():
+        tk.messagebox.showinfo(
+                "How to Register:", '''Enter all your details correctly 
+                and click on register.
+                
+                Constraints:
+                1. Username should be Alpha Numeric.
+                2. Phone number should be 10 digits.
+                3. Password should consist of at least of 8 characters.
+                4. Email - ID should be valid.''')
+
+
+    def ext():
+        reg_window.destroy()
+    
+    
+    def clear(): #reseting all the fields for fresh entry of data
+        username.set('')
+        phone.set('')
+        password.set('')
+        conf_password.set('')
+        email.set('')
+        lab_status.config(text='---')
+
+
+    def register():
+        if verify('reg'):
+            if sql_reg(username.get(), password.get(), phone.get(), email.get()):
+                reg_window.destroy()
+                login_wind()
+
+        
+    #-------------Menu---------------
+    menu = tk.Menu(reg_window)
+    reg_window.config(menu=menu)
+    
+    
+    file_menu = tk.Menu(menu)
+    file_menu.add_command(label="Exit", command=ext)
+    menu.add_cascade(label="File", menu=file_menu)
+    
+    
+    option = tk.Menu(menu)
+    option.add_command(label="About", command=about)
+    option.add_command(label="Help", command=helpp)
+    menu.add_cascade(label="Option", menu=option)
+        
+        
+   
