@@ -350,4 +350,97 @@ def reg_wind():
     menu.add_cascade(label="Option", menu=option)
         
         
-   
+    #--------------------------Labels and Entries-----------------
+    label_0 = tk.Label(reg_window,
+                       text="Registration Form",
+                       relief="solid",
+                       width=20,
+                       font=("arial", 24, "bold"),
+                       bg="#e7eaf6")
+    label_0.place(x=50,y=150)
+    
+    
+    lab_user = tk.Label(reg_window,
+                        text = "Username :",
+                        width = 20,
+                        font = ("bold", 14),
+                        bg="#e7eaf6")
+    lab_user.place(x=80,y=240)
+    
+    
+    entry_user = tk.Entry(reg_window,
+                          textvar=username,
+                          font=('arial',12),
+                          relief=tk.FLAT)
+    entry_user.place(x=270,y=242)
+    
+    
+    lab_phone = tk.Label(reg_window,
+                         text='Phone No :',
+                         width=20,
+                         font=("bold", 14),
+                         bg="#e7eaf6")
+    lab_phone.place(x=80,y=280)
+    
+    
+    entry_phone = tk.Entry(reg_window,
+                           textvar=phone,
+                           font=('arial', 12),
+                           relief=tk.FLAT)
+    entry_phone.place(x=270, y=282)
+    
+    
+    lab_pass = tk.Label(reg_window,
+                        text='Password :',
+                        width=20,
+                        font=("bold", 14),
+                        bg="#e7eaf6")
+    lab_pass.place(x=80, y=320)
+    
+    
+    entry_pass = tk.Entry(reg_window,
+                          textvar=password,
+                          show='*',
+                          font=('arial', 12),
+                          relief=tk.FLAT)
+    entry_pass.place(x=270, y=320)
+    
+    
+    lab_confpass = tk.Label(reg_window,
+                            text='Confirm Password :',
+                            width=20,
+                            font=("bold", 14),
+                            bg="#e7eaf6")
+    lab_confpass.place(x=45, y=360)
+    
+    
+    entry_confpass = tk.Entry(reg_window,
+                              textvar=conf_password,
+                              show='*',
+                              font=('arial', 12),
+                              relief=tk.FLAT)
+    entry_confpass.place(x=270, y=360)
+    
+    
+    lab_email = tk.Label(reg_window,
+                         text='E-Mail ID :',
+                         width=20,
+                         font=("bold", 14),
+                         bg="#e7eaf6")
+    lab_email.place(x=73, y=400)
+    
+    
+    entry_email = tk.Entry(reg_window,
+                           textvar=email,
+                           font=('arial', 12),
+                           relief=tk.FLAT)
+    entry_email.place(x=272, y=400)
+
+
+    lab_status = tk.Label(reg_window,
+                          text='---',
+                          fg ='red',
+                          bg="#e7eaf6",
+                          font=("bold", 10))
+    lab_status.place(x=20, y=600)
+
