@@ -444,3 +444,36 @@ def reg_wind():
                           font=("bold", 10))
     lab_status.place(x=20, y=600)
 
+
+    #--------------Buttons--------------
+    but_reg=tk.Button(reg_window,
+                      text='Register',
+                      width=12,
+                      font=('bold'),
+                      bg="#1089ff",
+                      relief=tk.FLAT,
+                      fg='white',
+                      command = register).place(x=50, y=515)
+    
+    
+    but_clear=tk.Button(reg_window,
+                        text='Clear',
+                        width=12,
+                        font=('bold'),
+                        bg="#1089ff",
+                        relief=tk.FLAT,
+                        fg='white',
+                        command=clear).place(x=200, y=515)
+    
+    
+    but_quit=tk.Button(reg_window,
+                       text='Quit',
+                       width=12,
+                       font=('bold'),
+                       bg="#1089ff",
+                       relief=tk.FLAT,
+                       fg='white',
+                       command=ext).place(x=350, y=515)
+        
+    reg_window.mainloop()
+    cursor.close()
