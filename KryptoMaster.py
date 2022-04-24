@@ -549,3 +549,96 @@ def login_wind():
     option.add_command(label="About", command=about)
     option.add_command(label="Help", command=helpp)
     menu.add_cascade(label="Option", menu=option)
+
+
+# --------------------------Labels and Entries-----------------------------
+    label_0 = tk.Label(login_window,
+                       text="Login in to Krypto Master",
+                       relief="solid",
+                       width=22,
+                       font=("arial", 24,"bold"),
+                       bg="#e7eaf6")
+    label_0.place(x=30, y=150)
+
+
+    lab_user = tk.Label(login_window,
+                        text="Username :",
+                        width=20,
+                        font=("bold", 14),
+                        bg="#e7eaf6")
+    lab_user.place(x=70, y=310)
+    
+    
+    entry_user = tk.Entry(login_window,
+                          textvar=username,
+                          font=('arial',12),
+                          relief=tk.FLAT)
+    entry_user.place(x=260, y=315)
+
+
+    lab_password = tk.Label(login_window,
+                            text='Password :',
+                            width=20,
+                            font=("bold", 14),
+                            bg="#e7eaf6")
+    lab_password.place(x=70, y=350)
+    
+    
+    entry_pass = tk.Entry(login_window,
+                          textvar=password,
+                          show = '*',
+                          font=('arial',12),
+                          relief=tk.FLAT)
+    entry_pass.place(x=260,y=355)
+
+
+    lab_status = tk.Label(login_window, 
+                          text='---',
+                          fg ='red',
+                          bg="#e7eaf6",
+                          font=("bold", 10))
+    lab_status.place(x=20, y=520)
+    
+    
+    #--------------Buttons--------------
+    but_login = tk.Button(login_window,
+                        text='Login',
+                        width=12,
+                        font=('bold'),
+                        bg="#1089ff",
+                        relief=tk.FLAT,
+                        fg='white',
+                        command=login).place(x=25, y=415)
+    
+    
+    but_clear=tk.Button(login_window,
+                        text='Clear',
+                        width=12,
+                        font=('bold'),
+                        bg="#1089ff",
+                        relief=tk.FLAT,
+                        fg='white',
+                        command=clear).place(x=177, y=415)
+    
+    
+    but_register = tk.Button(login_window,
+                           text='Register',
+                           width=12,
+                           font=('bold'),
+                           bg="#1089ff",
+                           relief=tk.FLAT,
+                           fg='white',
+                           command=open_reg_wind).place(x=330, y=415)
+    
+    
+    but_quit = tk.Button(login_window,
+                       text='Quit',
+                       width=12,
+                       font=('bold'),
+                       bg="#1089ff",
+                       relief=tk.FLAT,
+                       fg='white',
+                       command=ext).place(x=175, y=475)
+    
+    login_window.mainloop()
+    cursor.close()
