@@ -32,3 +32,8 @@ git clone https://github.com/therealsgopi/KryptoMaster.git
 3. Start the program by executing `KryptoMaster.py` first!
 
 ## Screenshots
+### Registration Window:
+![gui1.jpg](pictures/gui1.jpg)
+
+### Login Window:
+![gui2.jpg](pictures/gui2.jpg)
