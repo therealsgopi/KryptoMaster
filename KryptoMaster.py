@@ -477,3 +477,75 @@ def reg_wind():
         
     reg_window.mainloop()
     cursor.close()
+
+
+#---------------Login window---------------------
+def login_wind():
+    cursor = con.cursor()
+    login_window=tk.Tk()
+    login_window.title("Krypto Master 1.0")
+    login_window.geometry("500x570")
+    login_window.resizable(0, 0)
+    login_window.configure(bg="#e7eaf6")
+
+    log_img = tk.PhotoImage(file = resource_path(r"resources\login_img.png"))
+    log_img_lab = tk.Label(login_window, image=log_img)
+    log_img_lab.pack(pady=10)
+    login_window.iconbitmap(resource_path(r'resources\icon.ico'))
+    
+    global lab_status
+
+    create_var_login()
+    
+    def helpp():
+        tk.messagebox.showinfo(
+                "How to Login",'''Enter your credentials correctly and click on Login
+                Click on Register if you are a new user.''')
+
+
+    def clear():
+        username.set('')
+        password.set('')
+        lab_status.config(text='---')
+        
+        
+    def ext():
+        login_window.destroy()
+        
+        
+    def open_reg_wind():
+        login_window.destroy()
+        reg_wind()
+        
+        
+    def open_dash_wind(u,p):
+        login_window.destroy()
+        dash_wind(u,p)    
+
+
+    def login():
+        if verify(None,'log'):
+            sql_login(username.get(), password.get())
+            if bool == 1:
+                open_dash_wind(username.get(), password.get())
+            elif bool == 2:
+                lab_status.config(text='Please enter the correct password!!!')
+            else:
+                lab_status.config(text='You are not registered. Please register yourself!!!')
+                
+                
+
+    #---------------------------Menu---------------------------
+    menu = tk.Menu(login_window)
+    login_window.config(menu=menu)
+    
+    
+    file_menu = tk.Menu(menu)
+    file_menu.add_command(label="Exit", command=ext)
+    menu.add_cascade(label="File", menu=file_menu)
+    
+    
+    option = tk.Menu(menu)
+    option.add_command(label="About", command=about)
+    option.add_command(label="Help", command=helpp)
+    menu.add_cascade(label="Option", menu=option)
