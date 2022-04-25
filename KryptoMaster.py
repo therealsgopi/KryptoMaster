@@ -427,7 +427,7 @@ def reg_wind():
                          width=20,
                          font=("bold", 14),
                          bg="#e7eaf6")
-    lab_email.place(x=85, y=400)
+    lab_email.place(x=73, y=400)
     
     
     entry_email = tk.Entry(reg_window,
@@ -453,7 +453,7 @@ def reg_wind():
                       bg="#1089ff",
                       relief=tk.FLAT,
                       fg='white',
-                      command = register).place(x=30, y=515)
+                      command = register).place(x=50, y=515)
     
     
     but_clear=tk.Button(reg_window,
@@ -463,7 +463,7 @@ def reg_wind():
                         bg="#1089ff",
                         relief=tk.FLAT,
                         fg='white',
-                        command=clear).place(x=180, y=515)
+                        command=clear).place(x=200, y=515)
     
     
     but_quit=tk.Button(reg_window,
@@ -473,7 +473,7 @@ def reg_wind():
                        bg="#1089ff",
                        relief=tk.FLAT,
                        fg='white',
-                       command=ext).place(x=330, y=515)
+                       command=ext).place(x=350, y=515)
         
     reg_window.mainloop()
     cursor.close()
