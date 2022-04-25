@@ -249,7 +249,7 @@ def about():
                 'About','''
                     Krypto Master
                     Version : 1.0
-                    Last Update : 19/01/2020
+                    Last Updated : 25/04/2022
                     Developers :-
                        S Gopi
                        Advaith Prasad Curpod
@@ -817,3 +817,137 @@ def dash_wind(u,p):
                     "Sorry",
  '''Sorry, Currently we are unavailable.
  Try again later or contact the Developers.''')
+             
+            
+# ---------------------Frames--------------------------
+    Top = tk.Frame(dash_window, padx=10, pady=10, bg="#e7eaf6")
+    Top.pack(padx=10, pady=10, fill=tk.X)
+    
+     
+# ------------------Combobox-------------------
+    combo_val=['Please select a file to be Decrypted']
+    combobox_data()
+    for i in combo_disp:
+        combo_val.append(i[0])
+    combo_encfiles = ttk.Combobox(dash_window, 
+                                  width=35,
+                                  values=combo_val,
+                                  textvar=combo,
+                                  postcommand=combobox_update,
+                                  font=('arial',12))
+    combo_encfiles.current(0)
+    combo_encfiles.bind("<<ComboboxSelected>>", combobox_selection)
+    combo_encfiles.place(x=115,y=350)
+
+
+# -------------Menu---------------
+    menu = tk.Menu(dash_window)
+    dash_window.config(menu=menu)
+        
+    
+    option = tk.Menu(menu)
+    option.add_command(label='Logout', command=open_login_wind)
+    option.add_command(label='About', command=about)
+    menu.add_cascade(label='Option', menu=option)
+    menu.add_command(label='Help', command=helpp)
+
+
+# ----------------------------------------Labels and Entries-----------------------------------
+    lab_welcome = tk.Label(Top,
+                           text="Welcome " + u.capitalize(),
+                           relief="solid",
+                           width=20,
+                           font=("arial", 24,"bold"),
+                           bg="#e7eaf6")
+    lab_welcome.pack(fill=tk.X)
+    
+    
+    lab_path = tk.Label(dash_window, 
+                        text="File Path :",
+                        width=10,
+                        font=("bold", 14),
+                        bg="#e7eaf6")
+    lab_path.place(x=50, y=100)
+    
+    
+    entry_path = tk.Entry(dash_window,
+                          textvar = path,
+                          width = 40,
+                          font=('arial',12),
+                          relief=tk.FLAT)
+    entry_path.place(x=195, y=105)
+    
+    
+    lab_key = tk.Label(dash_window,
+                       text='Secret Key :',
+                       width=10,
+                       font=("bold", 14),
+                       bg="#e7eaf6")
+    lab_key.place(x=40, y=130)
+    
+    
+    entry_key = tk.Entry(dash_window,
+                         textvar=key,
+                         show='*',
+                         font=('arial',12),
+                         relief=tk.FLAT)
+    entry_key.place(x=195, y=135)
+    
+    
+    lab_status = tk.Label(dash_window,
+                          text='---',
+                          fg ='red',
+                          bg="#e7eaf6",
+                          font=("bold", 10))
+    lab_status.place(x=25, y=550)
+     
+    
+    #--------------Buttons--------------
+    but_select_file = tk.Button(dash_window,
+                                text='Select File..',
+                                font=('bold'),
+                                bg="#1089ff",
+                                relief=tk.FLAT,
+                                fg='white',
+                                width=45,
+                                command=browse_func).place(x=50, y = 180)
+    
+    
+    but_encrypt = tk.Button(dash_window,
+                            text='Encrypt',
+                            width=12,
+                            font=('bold'),
+                            bg="#1089ff",
+                            relief=tk.FLAT,
+                            fg='white',
+                            command=encrypt_btn)
+    but_encrypt.place(x=215, y=250)
+    
+    
+    but_decrypt = tk.Button(dash_window,
+                            text='Decrypt',
+                            width=12,
+                            font=('bold'),
+                            bg="#1089ff",
+                            relief=tk.FLAT,
+                            fg='white',
+                            command=decrypt_btn)
+    but_decrypt.place(x=215, y=410)
+    
+    
+    but_clear=tk.Button(dash_window,
+                        text='Clear',
+                        width=12,
+                        font=('bold'),
+                        bg="#1089ff",
+                        relief=tk.FLAT,
+                        fg='white',
+                        command=clear).place(x=215, y=480)
+    
+    dash_window.mainloop()
+    cursor.close()
+
+
+#----------------Function Calls-----------------------
+create_database()
+
