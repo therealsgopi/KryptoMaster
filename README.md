@@ -37,3 +37,8 @@ git clone https://github.com/therealsgopi/KryptoMaster.git
 
 ### Login Window:
 ![gui2.jpg](pictures/gui2.jpg)
+
+### User Dashboard Window:
+![gui3.jpg](pictures/gui3.jpg)
+
+![gui4.jpg](pictures/gui4.jpg)

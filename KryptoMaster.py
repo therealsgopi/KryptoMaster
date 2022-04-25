@@ -695,9 +695,8 @@ def dash_wind(u,p):
         but_encrypt['state'] = 'disabled'
         but_decrypt['state'] = 'normal'
         cursor.execute("Select o_filepath from " + str(u) + " where uid= \'" + str(combo_encfiles.current()) + '\'')
-        if (cursor.fetchall()):
-            path.set(cursor.fetchall()[0][0])
-            entry_path.config(state='readonly')
+        path.set(cursor.fetchall()[0][0])
+        entry_path.config(state='readonly')
            
         
     def combobox_update():
@@ -951,3 +950,5 @@ def dash_wind(u,p):
 #----------------Function Calls-----------------------
 create_database()
 
+
+ 
