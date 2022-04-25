@@ -642,3 +642,178 @@ def login_wind():
     
     login_window.mainloop()
     cursor.close()
+  
+ 
+#--------------Dashboard Window--------------
+def dash_wind(u,p):
+    cursor = con.cursor()
+    dash_window = tk.Tk()
+    dash_window.geometry('600x600')
+    dash_window.title(u.capitalize() + " - Your Dashboard")
+    dash_window.resizable(0,0)
+    dash_window.configure(bg="#e7eaf6")
+    
+    dash_window.iconbitmap(resource_path(r'resources\icon.ico'))
+    
+    global lab_status
+    
+    create_var_dash()
+    
+    def helpp():
+        tk.messagebox.showinfo(
+            "Usage Guide",
+            """
+            1. Click SELECT FILE Button and select your file (e.g. abc.txt)
+            2.Enter your Secret Key (This can be any alphanumeric letters). 
+            Remember this so you can Decrypt the file later.
+            3. Click ENCRYPT Button to encrypt. A new encrypted file with 
+            ".enc" extention (e.g. abc.txt.enc) will be created in another 
+            directory.
+            4. When you want to Decrypt a file select the file in the menu. 
+            Click DECRYPT Button to decrypt. The decrypted file will be of
+            the same name as before "abc.txt".
+            5. Click CLEAR Button to clear the input fields.""")
+
+
+    def clear():
+        global source_file
+        path.set('')
+        key.set('')
+        combo_encfiles.current(0)
+        lab_status.config(text='---')
+        but_encrypt['state'] = 'normal'
+        but_decrypt['state'] = 'normal'
+        
+        
+    def combobox_data():
+        global combo_disp
+        cursor.execute("Select o_filename from " + u)
+        combo_disp = cursor.fetchall()
+        
+        
+    def combobox_selection(event):
+        but_encrypt['state'] = 'disabled'
+        but_decrypt['state'] = 'normal'
+        cursor.execute("Select o_filepath from " + str(u) + " where uid= \'" + str(combo_encfiles.current()) + '\'')
+        if (cursor.fetchall()):
+            path.set(cursor.fetchall()[0][0])
+            entry_path.config(state='readonly')
+           
+        
+    def combobox_update():
+        combo_encfiles['values'] = combo_val
+        
+        
+    def update_uid():
+        cursor.execute('Select uid from ' + u)
+        uids=cursor.fetchall()
+        for i in range(len(uids)):
+            upd_uid = "update {} set uid= {} where uid= '{}'".format(u,str(i+1),uids[i][0])
+            cursor.execute(upd_uid)
+            con.commit()
+        
+        
+    def browse_func():
+        global source_file,file_split
+        but_decrypt['state'] = 'disabled'
+        but_encrypt['state'] = 'normal'
+        source_file = filedialog.askopenfilename().replace('/','\\\\')
+        path.set(source_file)
+        entry_path.config(state='readonly')
+        file_split = os.path.split(source_file)
+        
+        
+    def open_login_wind():
+        dash_window.destroy()
+        login_wind()
+        
+        
+    def dash_verify():
+        lab_status.config(text='---')
+        if path.get() == '' or path.get().isspace(): #label.cget('text'),lable['text']
+            lab_status.config(text='Please select a file to operate/work on!!!')
+            return False
+        elif len(key.get()) < 4:
+            lab_status.config(text='Please enter a key with minimum of 4 characters!!!')
+            return False
+        return True
+        
+    
+    def encrypt_btn():
+        try:
+            if dash_verify():
+                lab_status.config(text='Encrypting.....')
+    
+                with open(source_file,'r') as f:
+                    raw = f.read()
+                
+                encryp_data = encrypt(raw,key.get())
+                encryp_fname = fname_modify(file_split[1][:-4]) + '.txt.enc'        
+                      
+                with open(encrypt_dir + encryp_fname ,'wb') as f:
+                    f.write(encryp_data)            
+                os.remove(source_file)
+                tk.messagebox.showinfo(
+                    "Original File Status",
+                    '''Your original file was deleted successfully.''')
+        
+                cursor.execute('Select uid from ' + u)
+                uid = len(cursor.fetchall()) + 1
+                ins = "insert into " + u +" (uid,o_filepath,o_filename,enc_filename,sec_key) " \
+                "values ('{}','{}','{}','{}','{}')".format(uid,source_file,file_split[1],encryp_fname,key.get())
+                cursor.execute(ins)
+                con.commit()
+                combo_val.append(file_split[1])
+                clear()
+                lab_status.config(text='Encrypted Successfully')
+                
+        except FileNotFoundError:
+            lab_status.config(text='The Original File or Directory has got deleted, so cannot Encrypt.')
+        except UnicodeDecodeError:
+            lab_status.config(text='Sorry, currently this file format is not supported')
+        except:
+            lab_status.config(text='')
+            tk.messagebox.showinfo(
+                    "Sorry",
+                    '''Sorry, Currently we are unavailable.
+                    Try again later or contact the Developers.''')
+
+
+    def decrypt_btn():
+        try:
+            if dash_verify():
+                lab_status.config(text='Decrypting.....')
+                cursor.execute("Select sec_key,o_filepath,enc_filename,o_filename from " 
+                               + str(u) + " where uid= \'" + str(combo_encfiles.current()) + '\'' )
+                decryp_cred = cursor.fetchall()
+                
+                if key.get() == decryp_cred[0][0]:
+                    with open(encrypt_dir + decryp_cred[0][2],'rb') as f:
+                        raw=f.read()
+                            
+                    decryp_data = decrypt(raw,key.get())
+                        
+                    with open(decryp_cred[0][1],'w') as f:
+                        f.write(decryp_data)
+                                
+                    os.remove(encrypt_dir + decryp_cred[0][2])
+                    tk.messagebox.showinfo(
+                            "Ecrypted File Status",
+                            '''Your encrypted file was deleted successfully.''')
+                    cursor.execute("delete from " + u + " where uid= \'" + str(combo_encfiles.current()) + '\'')
+                    con.commit()
+                    update_uid()
+                    combo_val.remove(decryp_cred[0][3])
+                    clear()
+                    lab_status.config(text='Decrypted Successfully') 
+                else:
+                    lab_status.config(text='Enter the correct Secret Key.')
+        
+        except FileNotFoundError:
+            lab_status.config(text='The Encrypted file or Directory has got deleted, so cannot Decrypt.')
+        except:
+            lab_status.config(text='')
+            tk.messagebox.showinfo(
+                    "Sorry",
+ '''Sorry, Currently we are unavailable.
+ Try again later or contact the Developers.''')
