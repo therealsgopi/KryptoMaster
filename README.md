@@ -6,9 +6,13 @@ The front-end GUI is built using TKinter module of Pyhton and for the back-end D
 
 ## Working
 The main components of the program are:
+
 •	GUI Windows for Login, Registration and User’s Dashboard created using Tkinter.
+
 •	Encryption & Decryption of files through File handling.
+
 •	Storing users’ credentials and file data in MySQL database
+
 On successful login of a User to his/her dashboard, user can encrypt and/or decrupt multiple files.
 ### Encrypt: -
 User can browse or enter the path to select a file to be encrypted and enter a Secret Key and on pressing the Encrypt button:
