@@ -5,14 +5,10 @@ A File Encryptor Tool (standalone application) built using Python and MySQL DBMS
 The front-end GUI is built using TKinter module of Pyhton and for the back-end Database to store all the info, a MySQL RDBMS (MySQL Community Server 8.0.24) is used. For encrypting the contents of the files, Advanced Encryption Standard (AES) algoritm is used.
 
 ## Working
-The main components of the program are:
-
-•	GUI Windows for Login, Registration and User’s Dashboard created using Tkinter.
-
-•	Encryption & Decryption of files through File handling.
-
-•	Storing users’ credentials and file data in MySQL database
-
+The main components of the program are:  
+•	GUI Windows for Login, Registration and User’s Dashboard created using Tkinter.  
+•	Encryption & Decryption of files through File handling.  
+•	Storing users’ credentials and file data in MySQL database  
 On successful login of a User to his/her dashboard, user can encrypt and/or decrupt multiple files.
 ### Encrypt: -
 User can browse or enter the path to select a file to be encrypted and enter a Secret Key and on pressing the Encrypt button:
